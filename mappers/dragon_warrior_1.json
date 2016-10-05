@@ -1,0 +1,278 @@
+{
+    "gameName": "Dragon Warrior 1",
+    "properties": {
+        "map": {
+            "horizontal_offset": {
+                "type": "int",
+                "address": "11"
+            },
+            "loaded_map": {
+                "type": "int",
+                "address": "12"
+            },
+            "map_id": {
+                "type": "maps",
+                "address": "45"
+            },
+            "exterior_tile": {
+                "type": "tiles",
+                "address": "15"
+            }
+        },
+        "player": {
+            "position": {
+                "x": {
+                    "type": "int",
+                    "address": "3A"
+                },
+                "y": {
+                    "type": "int",
+                    "address": "3B"
+                }
+            },
+            "health": {
+                "type": "int",
+                "address": "C5"
+            },
+            "max_health": {
+                "type": "int",
+                "address": "CA"
+            },
+            "magic": {
+                "type": "int",
+                "address": "C6"
+            },
+            "max_magic": {
+                "type": "int",
+                "address": "CB"
+            },
+            "attack": {
+                "type": "int",
+                "address": "CC"
+            },
+            "defense": {
+                "type": "int",
+                "address": "CD"
+            },
+            "level": {
+                "type": "int",
+                "address": "C7"
+            },
+            "gold": {
+                "type": "int",
+                "address": "BC",
+                "length": 2
+            },
+            "magic_keys": {
+                "type": "int",
+                "address": "BF"
+            },
+            "herbs": {
+                "type": "int",
+                "address": "C0"
+            },
+            "items": {
+                "item1": {
+                    "type": "items",
+                    "address": "C1",
+                    "nybble": 0
+                },
+                "item2": {
+                    "type": "items",
+                    "address": "C1",
+                    "nybble": 1
+                },
+                "item3": {
+                    "type": "items",
+                    "address": "C2",
+                    "nybble": 0
+                },
+                "item4": {
+                    "type": "items",
+                    "address": "C2",
+                    "nybble": 1
+                },
+                "item5": {
+                    "type": "items",
+                    "address": "C3",
+                    "nybble": 0
+                },
+                "item6": {
+                    "type": "items",
+                    "address": "C3",
+                    "nybble": 1
+                },
+                "item7": {
+                    "type": "items",
+                    "address": "C4",
+                    "nybble": 0
+                },
+                "item8": {
+                    "type": "items",
+                    "address": "C4",
+                    "nybble": 1
+                }
+            }
+        },
+        "overworld_inactivity_timer": {
+            "type": "int",
+            "address": "4F"
+        },
+        "buttons_pressed": {
+            "type": "int",
+            "address": "47"
+        },
+        "light_radius": {
+            "type": "light",
+            "address": "D0"
+        },
+        "terrain": {
+            "type": "tiles",
+            "address": "E0"
+        },
+        "enemy": {
+            "type": "enemies",
+            "address": "E0"
+        }
+    },
+    "dictionary": {
+        "maps": {
+            "00": null,
+            "01": "WORLD MAP",
+            "02": "CHARLOCK CASTLE",
+            "03": "RUINS OF HAUKSNESS",
+            "04": "TANTEGEL CASTLE",
+            "05": "THRONE ROOM",
+            "06": "DRAGONLORD'S LAIR",
+            "07": "KOL",
+            "08": "BRECONARY",
+            "09": "GARINHAM",
+            "0A": "CANTLIN",
+            "0B": "RIMULDAR",
+            "0C": "SUN SHRINE",
+            "0D": "RAIN SHRINE",
+            "0E": "MAGIC TEMPLE",
+            "0F": "DRAGONLORD B1",
+            "10": "DRAGONLORD B2",
+            "11": "DRAGONLORD B3",
+            "12": "DRAGONLORD B4",
+            "13": "DRAGONLORD B5",
+            "14": "DRAGONLORD B6",
+            "15": "SWAMP CAVE",
+            "16": "MOUNTAIN CAVE B1",
+            "17": "MOUNTAIN CAVE B2",
+            "18": "GARIN'S GRAVE B1",
+            "19": "GARIN'S GRAVE B2",
+            "1A": "GARIN'S GRAVE B3",
+            "1B": "GARIN'S GRAVE B4",
+            "1C": "EDRICK'S CAVE B1",
+            "1D": "EDRICK'S CAVE B2"
+        },
+        "tiles": {
+            "00": "GRASS",
+            "01": "DIRT",
+            "03": "STAIRS",
+            "04": "COBBLESTONE",
+            "05": "STAIRS",
+            "06": "MARSH",
+            "10": "STONE",
+            "15": "WATER",
+            "16": "CAVES",
+            "21": "THRONE",
+            "26": "REDCOBBLESTONE",
+            "0A": "BRIDGE",
+            "0B": "TREES",
+            "0C": "CHEST"
+        },
+        "enemies": {
+            "00": "SLIME",
+            "01": "RED SLIME",
+            "02": "DRAKEE",
+            "03": "GHOST",
+            "04": "MAGICIAN",
+            "05": "MAGIDRAKEE",
+            "06": "SCORPION",
+            "07": "DRUIN",
+            "08": "POLTERGEIST",
+            "09": "DROLL",
+            "0A": "DRAMEEMA",
+            "0B": "SKELETON",
+            "0C": "WARLOCK",
+            "0D": "METAL SCORPION",
+            "0E": "WOLF",
+            "0F": "WRAITH",
+            "10": "METAL SLIME",
+            "11": "SPECTER",
+            "12": "WOLFLORD",
+            "13": "DRUINLORD",
+            "14": "DROLLMAGI",
+            "15": "WYVERN",
+            "16": "ROGUE SCORPION",
+            "17": "WRAITH KNIGHT",
+            "18": "GOLEM",
+            "19": "GOLDMAN",
+            "1A": "KNIGHT",
+            "1B": "MAGIWYVERN",
+            "1C": "DEMON KNIGHT",
+            "1D": "WEREWOLF",
+            "1E": "GREEN DRAGON",
+            "1F": "STARWYVERN",
+            "20": "WIZARD",
+            "21": "AXE KNIGHT",
+            "22": "BLUE DRAGON",
+            "23": "STONEMAN",
+            "24": "ARMORED KNIGHT",
+            "25": "RED DRAGON",
+            "26": "DRAGONLORD 1",
+            "27": "DRAGONLORD 2"
+        },
+        "items": {
+            "0": null,
+            "1": "TORCH",
+            "2": "FAIRY WATER",
+            "3": "WINGS",
+            "4": "DRAGON'S SCALE",
+            "5": "FAIRY FLUTE",
+            "6": "FIGHTER'S RING",
+            "7": "ERDRICK'S TOKEN",
+            "8": "GWAELIN'S LOVE",
+            "9": "CURSED BELT",
+            "A": "SILVER HARP",
+            "B": "DEATH'S NECKLACE",
+            "C": "STONES OF SUNLIGHT",
+            "D": "STAFF OF RAIN",
+            "E": "RAINBOW DROP",
+            "F": "HERB"
+        },
+        "equipment_swords": {
+            "20": "BAMBOO POLE",
+            "40": "CLUB",
+            "60": "COPPER SWORD",
+            "80": "HAND AXE",
+            "A0": "BROAD SWORD",
+            "C0": "FLAME SWORD",
+            "E0": "EDRICK'S SWORD"
+        },
+        "equipment_armor": {
+            "04": "CLOTHES",
+            "08": "LEATHER ARMOR",
+            "0C": "CHAIN MAIL",
+            "10": "HALF-PLATE ARMOR",
+            "14": "FULL-PLATE ARMOR",
+            "18": "MAGIC ARMOR",
+            "1C": "EDRICK'S ARMOR"
+        },
+        "equipment_shields": {
+            "01": "SMALL SHIELD",
+            "02": "LARGE SHIELD",
+            "03": "SILVER SHIELD"
+        },
+        "light": {
+            "01": "1 TILE",
+            "03": "SEMI_LOW_LIGHT",
+            "05": "?",
+            "07": "?",
+            "16": "?"
+        }
+    }
+}

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="jquery-2.2.3.min.js"></script>
+    <script src="vue.js"></script>
+    <script src="vue-resource.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+
+    <meta charset=utf-8 />
+    <title>Pokemon Red Blue</title>
+
+    <style type="text/css">
+        body {
+            background: url(http://img.wallpaperfolder.com/f/535C4A78DCD7/pokemon-red-blue-watercolor-art.jpg);
+            background-color: black;
+            color: white;
+        }
+
+        section {
+            float: left;
+        }
+        section p { margin: 0px; padding: 0px; }
+
+        .sprite {
+            float: left;
+            margin-top: 0.2em;
+            margin-left: 0.2em;
+            margin-right: 0.8em;
+            width: 86px;
+            height: 86px;
+            overflow: hidden;
+        }
+
+        .sprite img {
+            width: 86px;
+            height: 86px;
+        }
+
+        .sprite-right {
+            margin-right: 0em;
+        }
+
+        .inactive {
+            filter: grayscale(100%);
+            opacity: 0.3;
+        }
+
+        .type-fire {
+            background: linear-gradient(135deg, rgba(255, 100, 100, 1) 22%, rgba(229, 150, 150, 1) 100%);
+        }
+
+        .type-water {
+            background: linear-gradient(135deg, rgba(100, 100, 255, 1) 22%, rgba(150, 150, 229, 1) 100%);
+        }
+
+        .alert {
+          text-align: center;
+          padding: 0.5em;
+          background-color: black;
+        }
+
+        .widget {
+            border: 2px solid black;
+            background: linear-gradient(225deg, rgba(255, 255, 255, 1) 22%, rgba(150, 150, 150, 1) 100%);
+            color: black;
+            margin: 0.5em;
+            margin-top: 0em;
+            margin-bottom: 0.5em;
+        }
+
+        .widget-normal {
+            width: 17em;
+            height: 90px;
+        }
+
+        .widget-double {
+            width: 17em;
+            height: 9.4em;
+        }
+
+        .widget h1 {
+            font-size: 1em;
+            text-align: center;
+            margin-top: 0.4em;
+            margin-bottom: 0.4em;
+        }
+
+        .widget p {
+            padding: 0px;
+            margin: 0px;
+        }
+        .widget.three-line p { margin-top: 0.7em; }
+        .widget.four-line p { margin-top: 0.3em; }
+
+        /* If you'd like a horizontal bar, enable this */
+        /*.widget-partypkmn {
+          display: inline-block;*/
+
+        .flip-horizontal img {
+            /* Flip the image horizontally */
+            -moz-transform: scaleX(-1);
+            -o-transform: scaleX(-1);
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+            filter: FlipH;
+            -ms-filter: "FlipH";
+        }
+
+        .center {
+            display: block;
+            margin: auto;
+        }
+
+        .center h1 {
+            padding-top: 1.8em;
+        }
+    </style>
+</head>
+
+<body id='view'>
+    <div v-if="p">
+
+        <!-- Notification -->
+        <section style="height: 3em; width: 100%; padding-bottom: 0.7em;">
+            <p class="alert" v-if="p.battle.isInBattle.value == 'WILD' && s.pokemon_rby_nuzlocke.catchable == true">
+              <strong>Catchable!</strong> This is your first Pokemon encounter in this area.
+          </p>
+            <p class="alert" v-if="p.battle.isInBattle.value == 'WILD' && s.pokemon_rby_nuzlocke.catchable == false">
+              <strong>Not Catchable!</strong> Encountered a {{ s.pokemon_rby_nuzlocke.previousEncounter.species }} in this area {{ s.pokemon_rby_nuzlocke.previousEncounter.timestamp | fromNow }}
+          </p>
+        </section>
+
+        <section>
+            <span v-if="p.party" v-for="pokemon in p.party">
+                <div class='widget widget-normal three-line'>
+                    <span v-if='pokemon.species.value.number != 0'>
+                      <selfpkmn :pokemon="pokemon"></selfpkmn>
+                    </span>
+            <span v-else>
+                      <emptypkmn></emptypkmn>
+                    </span>
+    </div>
+    </span>
+    </section>
+
+    <section style="width: 670px; height: 600px;">
+    </section>
+
+    <section class='widget widget-normal four-line'>
+        <span v-if="p.battle.isInBattle.value != 'NO' && p.battle.enemy.health.value != 0">
+          <enemypkmn :pokemon="p.battle.enemy" :wild="wild" :trainer="p.battle.trainer" />
+        </span>
+        <span v-else>
+          <emptypkmn></emptypkmn>
+        </span>
+    </section>
+
+    <section v-show="p.map.encounterRate.value == 0" class='widget widget-normal'>
+        <div class="center">
+            <h1 v-if="p.map.loadedMap.value.area">{{ p.map.loadedMap.value.area }}</h1>
+            <h1 v-else>{{p.map.loadedMap.value.id }}</h1>
+        </div>
+    </section>
+
+    <section v-show="p.map.encounterRate.value > 0" class="widget widget-normal" style="text-align: center;">
+        <h1 v-if="p.map.loadedMap.value.area">{{ p.map.loadedMap.value.area }}</h1>
+        <h1 v-else>{{p.map.loadedMap.value.id }}</h1>
+        <span v-for="wildpkmn in mapUniqueEncounters">
+            <wildpkmn :pokemon="wildpkmn"></wildpkmn>
+        </span>
+    </section>
+
+    <section class="widget widget-double" style="text-align: center;">
+      <h1>Badges</h1>
+      <img class='sprite-small' v-bind:class="{'inactive': p.badges.value < 1}" src='http://cdn.bulbagarden.net/upload/thumb/d/dd/Boulder_Badge.png/50px-Boulder_Badge.png' />
+      <img class='sprite-small' v-bind:class="{'inactive': p.badges.value < 3}" src='http://cdn.bulbagarden.net/upload/thumb/9/9c/Cascade_Badge.png/50px-Cascade_Badge.png' />
+      <img class='sprite-small' v-bind:class="{'inactive': p.badges.value < 7}" src='http://cdn.bulbagarden.net/upload/thumb/a/a6/Thunder_Badge.png/50px-Thunder_Badge.png' />
+      <img class='sprite-small' v-bind:class="{'inactive': p.badges.value < 15}" src='http://cdn.bulbagarden.net/upload/thumb/b/b5/Rainbow_Badge.png/50px-Rainbow_Badge.png' />
+      <br />
+      <img class='sprite-small' v-bind:class="{'inactive': p.badges.value < 16}" src='http://cdn.bulbagarden.net/upload/thumb/7/7d/Soul_Badge.png/50px-Soul_Badge.png' />
+      <img class='sprite-small' v-bind:class="{'inactive': p.badges.value < 17}" src='http://cdn.bulbagarden.net/upload/thumb/6/6b/Marsh_Badge.png/50px-Marsh_Badge.png' />
+      <img class='sprite-small' v-bind:class="{'inactive': p.badges.value < 18}" src='http://cdn.bulbagarden.net/upload/thumb/1/12/Volcano_Badge.png/50px-Volcano_Badge.png' />
+      <img class='sprite-small' v-bind:class="{'inactive': p.badges.value < 19}" src='http://cdn.bulbagarden.net/upload/thumb/7/78/Earth_Badge.png/50px-Earth_Badge.png' />
+    </section>
+
+    </div>
+
+    <script type='text/javascript'>
+        window.onload = function() {
+            var view = new Vue({
+                el: '#view',
+                ready: function() {
+                    this.loadData();
+                    this.timerData();
+                },
+                data: {
+                    p: null,
+                    r: null,
+                    s: null,
+                    mapUniqueEncounters: null,
+                    wild: null
+                },
+                methods: {
+                    timerData: function() {
+                        setInterval(this.loadData, 50);
+                    },
+                    loadData: function() {
+                        this.$http.get('http://127.0.0.1:5000/', function(data, status, request) {
+                            if (status == 200) {
+                                this.$set('p', data.properties);
+                                this.$set('s', data.scripts);
+
+                                function uniquePkmn(list) {
+                                    var existingSpecies = [];
+                                    var result = [];
+                                    $.each(list, function(i, e) {
+                                        if ($.inArray(e.species.hex.toString(), existingSpecies) == -1) {
+                                            result.push(e);
+                                            existingSpecies.push(e.species.hex.toString());
+                                        }
+                                    });
+                                    return result;
+                                }
+
+                                this.$set('mapUniqueEncounters', uniquePkmn(data.properties.map.encounters));
+                                this.$set('wild', data.properties.battle.isInBattle.value == 'WILD');
+                            }
+                        });
+                    }
+                },
+                filters: {
+                    fromNow: function(date) {
+                        return moment(date).fromNow();
+                    }
+                }
+            });
+
+            Vue.component('banner', {
+                props: ['pokemon', 'player'],
+                template: "\
+                      <span class='sprite flip-horizontal'> \
+                        <img :src=\"'http://www.pokestadium.com/sprites/emerald/' + pokemon.species.value.name.toLowerCase() + '.png'\" /> \
+                      </span>"
+            });
+
+            Vue.component('emptypkmn', {
+                template: "<img class='inactive center' style='width: 7.9em;' src='http://i1.wp.com/nintendo-papercraft.com/wp-content/uploads/2014/04/pokeball.png?resize=512%2C376' />"
+            });
+
+            Vue.component('wildpkmn', {
+                props: ['pokemon'],
+                template: "<img class='flip-horizontal' :src=\"'http://www.pokestadium.com/assets/img/sprites/misc/pmd2/' + pokemon.species.value.name.toLowerCase() + '.png'\" />"
+            });
+
+            Vue.component('enemypkmn', {
+                props: ['pokemon', 'wild', 'trainer'],
+                template: "\
+                      <div class='sprite sprite-right' style='float: right;'> \
+                        <img v-bind:class=\"{'inactive': pokemon.health.value == 0}\" :src=\"'http://www.pokestadium.com/sprites/emerald/' + pokemon.species.value.name.toLowerCase() + '.png'\" /> \
+                      </div> \
+                      <div style='margin-left: 0.6em; float: left;'> \
+                        <p v-if='wild'>WILD</p> \
+                        <p v-else style='font-size: smaller;'>{{ trainer.name.value }}'s</p> \
+                        <p>{{ pokemon.nickname.value }}</p> \
+                        <p style='font-size: small;'>Lv {{ pokemon.level.value }} </p> \
+                        <p style='font-size: small;'> HP: {{ pokemon.health.value }} / {{ pokemon.maxHealth.value }}</p> \
+                      </div> "
+            });
+
+            Vue.component('selfpkmn', {
+                props: ['pokemon'],
+                template: "\
+                      <div class='sprite flip-horizontal'> \
+                        <img v-bind:class=\"{'inactive': pokemon.health.value == 0}\" :src=\"'http://www.pokestadium.com/sprites/emerald/' + pokemon.species.value.name.toLowerCase() + '.png'\" /> \
+                      </div> \
+                      <div> \
+                        <p>{{ pokemon.nickname.value }}</p> \
+                        <p style='font-size: small;'>Lv {{ pokemon.level.value }} </p> \
+                        <p style='font-size: small;'> HP: {{ pokemon.health.value }} / {{ pokemon.maxHealth.value }}</p> \
+                      </div> \
+                      "
+            });
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+{
+    "gameName": "Megman 1",
+    "properties": {
+        "health": {
+            "type": "int",
+            "address": "6A"
+        },
+        "boss_health": {
+            "type": "int",
+            "address": "06C1"
+        },
+        "score": {
+            "type": "int",
+            "address": "72",
+            "length": 7
+        },
+        "lives": {
+            "type": "int",
+            "address": "A6"
+        },
+        "bonus": {
+            "type": "int",
+            "address": "AE"
+        },
+        "position": {
+            "x": {
+                "type": "int",
+                "address": "22"
+            },
+            "y": {
+                "type": "int",
+                "address": "25"
+            }
+        },
+        "touching_top": {
+            "type": "touching",
+            "address": "2C"
+        },
+        "touching_sides": {
+            "type": "touching",
+            "address": "94"
+        },
+        "stage": {
+            "type": "stages",
+            "address": "31"
+        },
+        "enemies_defeated": {
+            "type": "enemies_defeated",
+            "address": "5D"
+        },
+        "weapons": {
+            "equiped": {
+                "type": "weapons",
+                "address": "5F"
+            },
+            "cutman_weapon_energy": {
+                "type": "int",
+                "address": "6B"
+            },
+            "iceman_weapon_energy": {
+                "type": "int",
+                "address": "6C"
+            },
+            "bombman_weapon_energy": {
+                "type": "int",
+                "address": "6D"
+            },
+            "fireman_weapon_energy": {
+                "type": "int",
+                "address": "6E"
+            },
+            "elecman_weapon_energy": {
+                "type": "int",
+                "address": "6F"
+            },
+            "gutsman_weapon_energy": {
+                "type": "int",
+                "address": "70"
+            },
+            "magnetbeam_weapon_energy": {
+                "type": "int",
+                "address": "71"
+            }
+        }
+    },
+    "dictionary": {
+        "touching": {
+            "00": "AIR",
+            "01": "SOLID",
+            "02": "LADDER",
+            "03": "SPIKE",
+            "04": "ICE",
+            "05": "WATER",
+            "81": "BLOCK?"
+        },
+        "enemies_defeated": {
+            "00": "NONE"
+        },
+        "weapons": {
+            "00": "MEGA BUSTER",
+            "01": "HYPER BOMB",
+            "02": "THUNDER BEAM",
+            "03": "SUPER ARM",
+            "04": "ICE SLASHER",
+            "05": "ROLLING CUTTER",
+            "06": "FIRE STORM",
+            "07": "MAGNET BEAM"
+        },
+        "stages": {
+            "00": "CUTMAN",
+            "01": "ICEMAN",
+            "02": "BOMBMAN",
+            "03": "FIREMAN",
+            "04": "ELECMAN",
+            "05": "GUTSMAN",
+            "06": "WILY 1",
+            "07": "WILY 2",
+            "08": "WILY 3",
+            "09": "WILY 4",
+            "0A": "TITLE SCREEN",
+            "0B": "ENDING"
+        }
+    }
+}
