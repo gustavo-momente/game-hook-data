@@ -1,2 +1,2 @@
 # game-hook-data
-Repository for game-hook extra data.
+Repository for game-hook data.
