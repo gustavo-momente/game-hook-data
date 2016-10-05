@@ -42,7 +42,7 @@ var Script = function(mapper, driver) {
                 logger.info(`${pokemon.nickname.value} has died.`);
                 var originalMaxHealth = pokemon.maxHealth.value;
 
-                // Change the Pokemon's HP to 0 and change their Trainer's Name to DEAD.
+                // Change the Pokemon's HP to 0 and change their Trainer's Nickname to DEAD.
                 driver.write_hex(pokemon.health.address, ['00', '00']);
                 driver.write_hex(pokemon.maxHealth.address, ['00', '00']);
                 driver.write_hex(pokemon.trainerNickname.address, ['83', '84', '80', '83', '50']);
