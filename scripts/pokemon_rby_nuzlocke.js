@@ -34,8 +34,8 @@ var Script = function(mapper, driver) {
             // Checks if the Pokemon's health just hit zero.
             let healthIsZero = pokemon && pokemon.nickname.value != '' && pokemon.health.value == 0 && pokemon.maxHealth.value != 0;
 
-            // Check for ad ead original trainer, this is to prevent bugs where
-            // People can revive Pokemon by putting them in a PC / leaving them at the daycare.
+            // Check for a dead original trainer, this is to prevent bugs where
+            // players can revive Pokemon by putting them in a PC or leaving them at the daycare.
             let deadOrigTrainer = pokemon && pokemon.trainerNickname.value == 'DEAD' && pokemon.maxHealth.value != 0;
 
             if (healthIsZero || deadOrigTrainer) {
@@ -62,7 +62,7 @@ var Script = function(mapper, driver) {
     }
 
     try {
-        // Rule #2: Do not allow capture of Pokemon past the first encounter per area.
+        // Rule #2: Do not allow capture of Pokemon past the first encounter of an area.
         var location = prop.map.loadedMap.value.area;
         var previousEncounter = state.encounters.find(x => x.location == location);
         if (location && prop.battle.isInBattle.value == 'WILD') {
